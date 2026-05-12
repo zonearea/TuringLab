@@ -1,0 +1,30 @@
+name: "binary_palindrome"
+description: >
+  {0,1} uzerinde palindrom dilini tanir. Gecis tablosu Paul Goldberg (Oxford FCS)
+  ornegine dayanir; uyuşmazlikta q_reject durumuna gidilir.
+states: [i, p0, p1, q0, q1, r, t, q_reject]
+input_alphabet: ["0", "1"]
+tape_alphabet: ["0", "1", "B"]
+blank: "B"
+start_state: i
+accept_states: [t]
+reject_states: [q_reject]
+transitions:
+  - {state: i, read: "B", next: t, write: "B", move: R}
+  - {state: i, read: "0", next: p0, write: "B", move: R}
+  - {state: i, read: "1", next: p1, write: "B", move: R}
+  - {state: p0, read: "0", next: p0, write: "0", move: R}
+  - {state: p0, read: "1", next: p0, write: "1", move: R}
+  - {state: p0, read: "B", next: q0, write: "B", move: L}
+  - {state: p1, read: "0", next: p1, write: "0", move: R}
+  - {state: p1, read: "1", next: p1, write: "1", move: R}
+  - {state: p1, read: "B", next: q1, write: "B", move: L}
+  - {state: q0, read: "0", next: r, write: "B", move: L}
+  - {state: q0, read: "B", next: t, write: "B", move: R}
+  - {state: q0, read: "1", next: q_reject, write: "1", move: R}
+  - {state: q1, read: "1", next: r, write: "B", move: L}
+  - {state: q1, read: "B", next: t, write: "B", move: R}
+  - {state: q1, read: "0", next: q_reject, write: "0", move: R}
+  - {state: r, read: "0", next: r, write: "0", move: L}
+  - {state: r, read: "1", next: r, write: "1", move: L}
+  - {state: r, read: "B", next: i, write: "B", move: R}

@@ -31,3 +31,17 @@ Her çalışma günü sonunda (push öncesi) aşağıdaki şablonla yeni bir `##
 - **Commit’ler:** `91378ec` … `d3417ae` … arası docs commit’leri — tam liste: `git log --oneline`
 - **Yarın:** Geçiş lookup / history ince ayarı; el kitabı örnek YAML’ları ekleme; test sayısını 8+ çıkarma.
 - **Not / blokaj:** `git push` için henüz `remote` yok. GitHub’da private repo oluşturup: `git remote add origin <URL>` ve `git push -u origin master` (veya `main`).
+
+---
+
+## 2026-05-12
+
+- **Planlanan:** El kitabı örnek makine YAML’ları; `test_tm_engine` 8+ test; rubrik kenarları (yinelenen geçiş, geçersiz girdi, `reject`); README ve günlük günceliği.
+- **Yapılan:**
+  - [machines/unary_increment.yaml](machines/unary_increment.yaml), [machines/even_a.yaml](machines/even_a.yaml), [machines/binary_palindrome.yaml](machines/binary_palindrome.yaml) eklendi (palindrom geçişleri Goldberg FCS örneğine göre, uyuşmazlık için `q_reject`).
+  - [tests/test_tm_engine.py](tests/test_tm_engine.py): 12 test (`unary_increment`, `even_a`, `binary_palindrome`, geçersiz girdi `ValueError`, yinelenen δ `ValueError`, `TMStep` alan kontrolü).
+  - [README.md](README.md): kurulum, makine tablosu, kaynak notu.
+- **Test:** `python -m pytest tests/test_tm_engine.py -q` — 12 passed.
+- **Commit’ler:** (push öncesi yerelde) `feat:` / `test:` / `docs:` ile 1–3 anlamlı commit önerilir — tam liste: `git log --oneline`.
+- **Yarın:** Bölüm 1 cilası (docstring / rubrik son kontrol); Bölüm 2 için `design_notes.md` taslağı veya TM-1 unary→binary tasarımına başlangıç.
+- **Not / blokaj:** Push kullanıcı makinesinde; remote URL SSH veya HTTPS ile ayarlanmalı.
