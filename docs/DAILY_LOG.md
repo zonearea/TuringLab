@@ -1,24 +1,8 @@
 # TuringLab — günlük çalışma günlüğü
 
-Her çalışma günü sonunda aşağıdaki şablonla yeni bir `## YYYY-MM-DD` bölümü ekleyin.
+Proje ilerlemesinin kısa kaydı. Her gün için `## YYYY-MM-DD` başlığı altında **Planlanan**, **Yapılan**, **Test**, **Commit’ler**, **Yarın** ve **Not / blokaj** maddeleri doldurulur.
 
 ---
-
-## Şablon (kopyala-yapıştır)
-
-```markdown
-## YYYY-MM-DD
-
-- **Planlanan:**
-- **Yapılan:**
-- **Test:**
-- **Commit’ler:**
-- **Yarın:**
-- **Not / blokaj:**
-```
-
----
-
 ## 2026-05-11
 
 - **Planlanan:** Repo iskeleti; `turinglab` paketi; seyrek şerit + YAML doğrulama; `SingleTapeTM.run` iskeleti; ilk pytest; günlük dosyası.
