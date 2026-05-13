@@ -1,4 +1,7 @@
-"""TuringLab — tek şeritli TM motoru."""
+"""TuringLab: tek şeritli deterministik TM motoru paketi.
+
+Dışa aktarılanlar: ``SingleTapeTM``, ``RunResult``, ``TMStep`` (bkz. ``__all__``).
+"""
 
 from turinglab.tm_engine import RunResult, SingleTapeTM, TMStep
 

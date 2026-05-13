@@ -1,10 +1,14 @@
-"""Tek şeritli deterministik Turing makinesi motoru."""
+"""Tek şeritli deterministik Turing makinesi motoru.
+
+YAML tanımından ``SingleTapeTM`` yüklenir; ``run`` ile simülasyon yapılır.
+Şerit seyrek sözlük ile tutulur; kafa negatif indekslere genişleyebilir.
+"""
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Mapping, Optional, Tuple
+from typing import Any, List, Mapping, Tuple
 
 import yaml
 
@@ -13,7 +17,13 @@ Move = str  # "L" | "R"
 
 @dataclass(frozen=True)
 class TMStep:
-    """Tek adımdaki anlık yapılandırma (history öğesi)."""
+    """Tek adımdaki anlık yapılandırma (``run`` içindeki ``history`` öğesi).
+
+    Attributes:
+        state: O anki durum adı.
+        tape: Görünen şerit parçası (baş/son ``blank`` kırpılmış).
+        head_position: ``tape`` stringinde kafanın indeksi (0 tabanlı).
+    """
 
     state: str
     tape: str
@@ -22,7 +32,17 @@ class TMStep:
 
 @dataclass
 class RunResult:
-    """Çalıştırma sonucu."""
+    """``SingleTapeTM.run`` çıktısı.
+
+    Attributes:
+        accepted: Kabul durumunda ``True``.
+        reason: Son durum kodu: ``accept``, ``reject``, ``no_transition``,
+            ``timeout``.
+        final_tape: Baş ve sondaki ``blank`` sembolleri kırpılmış şerit içeriği.
+        steps: Yapılan geçiş sayısı (her δ uygulaması bir adım).
+        history: Başlangıç yapılandırması + her adım sonrası ``TMStep`` listesi;
+            uzunluk genelde ``steps + 1``.
+    """
 
     accepted: bool
     reason: str
@@ -32,7 +52,10 @@ class RunResult:
 
 
 class SingleTapeTM:
-    """YAML dosyasından yüklenen tek şeritli deterministik TM."""
+    """Tek şeritli deterministik TM; geçişler YAML ile yüklenir.
+
+    Her (durum, okunan sembol) çifti için en fazla bir geçiş tanımlanmalıdır.
+    """
 
     def __init__(
         self,
@@ -47,6 +70,20 @@ class SingleTapeTM:
         transitions: Mapping[Tuple[str, str], Tuple[str, str, Move]],
         description: str = "",
     ) -> None:
+        """Nesneyi doğrudan kurar; genelde ``from_yaml`` tercih edilir.
+
+        Args:
+            name: Makine adı.
+            states: Tüm durum adları.
+            input_alphabet: Girdi dizgisi sembolleri (``tape_alphabet`` alt kümesi).
+            tape_alphabet: Şerit alfabesi (``blank`` dahil).
+            blank: Boş hücre sembolü (tek karakter).
+            start_state: Başlangıç durumu.
+            accept_states: Kabul durumları listesi.
+            reject_states: Ret durumları listesi (``run`` içinde öncelik sırasıyla).
+            transitions: ``(durum, okunan) -> (yeni_durum, yazılacak, L|R)`` haritası.
+            description: İsteğe bağlı açıklama metni.
+        """
         self.name = name
         self.description = description
         self.states = states
@@ -60,6 +97,18 @@ class SingleTapeTM:
 
     @classmethod
     def from_yaml(cls, path: str | Path) -> SingleTapeTM:
+        """YAML dosyasından makine tanımını okuyup doğrular.
+
+        Args:
+            path: YAML dosya yolu.
+
+        Returns:
+            Yüklü ve doğrulanmış ``SingleTapeTM`` örneği.
+
+        Raises:
+            ValueError: Dosya yok, YAML hatalı, şema/alfabe/geçiş çelişkisi veya
+                aynı ``(state, read)`` için birden fazla geçiş varsa.
+        """
         p = Path(path)
         if not p.is_file():
             raise ValueError(f"YAML dosyası bulunamadı: {p}")
@@ -175,6 +224,20 @@ class SingleTapeTM:
         max_steps: int = 10_000,
         verbose: bool = False,
     ) -> RunResult:
+        """Makineyi başlangıç şeridi ``input_string`` ile çalıştırır.
+
+        Args:
+            input_string: Başlangıçta kafa altındaki hücreden sağa doğru yazılan
+                girdi; tüm karakterler ``input_alphabet`` içinde olmalıdır.
+            max_steps: Sonsuz döngüde takılmamak için üst adım sınırı.
+            verbose: ``True`` ise her adımda el kitabı biçiminde satır basar.
+
+        Returns:
+            ``RunResult`` (``reason`` ile sonuç kodu).
+
+        Raises:
+            ValueError: ``input_string`` içinde izin verilmeyen sembol varsa.
+        """
         for ch in input_string:
             if ch not in self.input_alphabet:
                 raise ValueError(

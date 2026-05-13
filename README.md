@@ -9,6 +9,8 @@ Selçuk Üniversitesi Hesaplama Kuramı — **TuringLab** final ödevi: tek şer
 - Python 3.10+
 - `pip install -r requirements.txt`
 
+**Bölüm 1 (el kitabı):** Üçüncü parti yalnızca **PyYAML** ve **pytest**; standart kütüphane serbest.
+
 ## Test
 
 ```bash
