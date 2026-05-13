@@ -1,6 +1,6 @@
 # TuringLab — günlük çalışma günlüğü
 
-Her çalışma günü sonunda (push öncesi) aşağıdaki şablonla yeni bir `## YYYY-MM-DD` bölümü ekleyin.
+Her çalışma günü sonunda aşağıdaki şablonla yeni bir `## YYYY-MM-DD` bölümü ekleyin.
 
 ---
 
@@ -30,7 +30,7 @@ Her çalışma günü sonunda (push öncesi) aşağıdaki şablonla yeni bir `##
 - **Test:** `python -m pytest tests/test_tm_engine.py -q` — 6 passed.
 - **Commit’ler:** `91378ec` … `d3417ae` … arası docs commit’leri — tam liste: `git log --oneline`
 - **Yarın:** Geçiş lookup / history ince ayarı; el kitabı örnek YAML’ları ekleme; test sayısını 8+ çıkarma.
-- **Not / blokaj:** `git push` için henüz `remote` yok. GitHub’da private repo oluşturup: `git remote add origin <URL>` ve `git push -u origin master` (veya `main`).
+- **Not / blokaj:** Yok.
 
 ---
 
@@ -42,20 +42,20 @@ Her çalışma günü sonunda (push öncesi) aşağıdaki şablonla yeni bir `##
   - [tests/test_tm_engine.py](tests/test_tm_engine.py): 12 test (`unary_increment`, `even_a`, `binary_palindrome`, geçersiz girdi `ValueError`, yinelenen δ `ValueError`, `TMStep` alan kontrolü).
   - [README.md](README.md): kurulum, makine tablosu, kaynak notu.
 - **Test:** `python -m pytest tests/test_tm_engine.py -q` — 12 passed.
-- **Commit’ler:** (push öncesi yerelde) `feat:` / `test:` / `docs:` ile 1–3 anlamlı commit önerilir — tam liste: `git log --oneline`.
+- **Commit’ler:** Tam liste: `git log --oneline`.
 - **Yarın:** Bölüm 1 cilası (docstring / rubrik son kontrol); Bölüm 2 için `design_notes.md` taslağı veya TM-1 unary→binary tasarımına başlangıç.
-- **Not / blokaj:** Push kullanıcı makinesinde; remote URL SSH veya HTTPS ile ayarlanmalı.
+- **Not / blokaj:** Yok.
 
 ---
 
-## 2026-05-13 — Parça 1 (push 1)
+## 2026-05-13
 
-- **Planlanan:** Bölüm 1 motor/docstring cilası; README Bölüm 1 bağımlılık notu; günlük push 1 kaydı; pytest yeşil.
+- **Planlanan:** Bölüm 1 motor/docstring cilası; README Bölüm 1 bağımlılık notu; günlük kaydı; pytest yeşil.
 - **Yapılan:**
   - [turinglab/tm_engine.py](turinglab/tm_engine.py): modül, ``TMStep``, ``RunResult``, ``SingleTapeTM`` (``__init__``, ``from_yaml``, ``run``) Google tarzı docstring; kullanılmayan ``typing`` importları temizlendi.
   - [turinglab/__init__.py](turinglab/__init__.py): paket docstring ve ``__all__`` açıklaması.
   - [README.md](README.md): Bölüm 1 izinli bağımlılıklar cümlesi.
 - **Test:** `python -m pytest tests/test_tm_engine.py -q` — 12 passed.
-- **Commit’ler:** `docs: motor docstring ve README Bolum 1 notlari` — tam hash: `git log -1 --oneline`.
-- **Parça 2 (aynı gün, ikinci push):** TM-1 `unary_to_binary.yaml`, `tests/test_machines.py`, `docs/design_notes.md` (Bölüm 2 başlangıcı).
+- **Commit’ler:** `git log --oneline` ile bakılır.
+- **Yarın:** TM-1 `unary_to_binary.yaml`, `tests/test_machines.py`, `docs/design_notes.md` (Bölüm 2).
 - **Not / blokaj:** Yok.
