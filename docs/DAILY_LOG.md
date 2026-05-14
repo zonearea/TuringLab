@@ -43,3 +43,18 @@ Proje ilerlemesinin kısa kaydı. Her gün için `## YYYY-MM-DD` başlığı alt
 - **Commit’ler:** `git log --oneline` ile bakılır.
 - **Yarın:** TM-1 `unary_to_binary.yaml`, `tests/test_machines.py`, `docs/design_notes.md` (Bölüm 2).
 - **Not / blokaj:** Yok.
+
+---
+
+## 2026-05-14
+
+- **Planlanan:** TM-1 `unary_to_binary.yaml` doğrulama; `tests/test_machines.py`; `docs/design_notes.md`; README/günlük; pytest tam paket.
+- **Yapılan:**
+  - `unary_to_binary`: `q_rw1` ile X’e gelince unary tarafına `L`; `q_lr` sol baştaki `1` için doğrudan silme (`q_er`); `q_lr,X → q_cx` ile ayırıcı sonrası temizlik. Üretici: [scripts/gen_unary_to_binary.py](scripts/gen_unary_to_binary.py).
+  - [tests/test_machines.py](tests/test_machines.py): yükleme, kabul (parametre: n∈{1,2,3,4,5,16,255}), boş ret, n=256 ret.
+  - [docs/design_notes.md](docs/design_notes.md): TM-1 beş soru cevabı.
+  - [README.md](README.md): `unary_to_binary` satırı ve `pytest tests/` komutu.
+- **Test:** `python -m pytest tests/ -q` — 22 passed.
+- **Commit’ler:** `git log --oneline` ile bakılır.
+- **Yarın:** İstenirse `q0,0 → q_reject` ile geçersiz girdi ret; el kitabı son kontrol.
+- **Not / blokaj:** Yok.

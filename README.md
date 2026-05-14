@@ -14,10 +14,10 @@ Selçuk Üniversitesi Hesaplama Kuramı — **TuringLab** final ödevi: tek şer
 ## Test
 
 ```bash
-python -m pytest tests/test_tm_engine.py -q
+python -m pytest tests/ -q
 ```
 
-Tüm testler yeşil olmalı (Bölüm 1 rubriği: en az 8 test).
+Tüm testler yeşil olmalı (Bölüm 1 rubriği: en az 8 test; Bölüm 2’de `test_machines.py` eklenir).
 
 ## Örnek makineler (`machines/`)
 
@@ -27,6 +27,7 @@ Tüm testler yeşil olmalı (Bölüm 1 rubriği: en az 8 test).
 | [machines/unary_increment.yaml](machines/unary_increment.yaml) | Unary `1^n` → `1^(n+1)` |
 | [machines/even_a.yaml](machines/even_a.yaml) | `{a,b}` üzerinde çift sayıda `a` |
 | [machines/binary_palindrome.yaml](machines/binary_palindrome.yaml) | `{0,1}` palindrom (geçişler Paul Goldberg [FCS örneği](http://www.cs.ox.ac.uk/people/paul.goldberg/FCS/tm1.html) tabanı; uyuşmazlıkta `q_reject`) |
+| [machines/unary_to_binary.yaml](machines/unary_to_binary.yaml) | Unary `1^n` → n’nin ikili yazımı (K=8 bit alan; n≤255); [docs/design_notes.md](docs/design_notes.md) |
 
 Ders sayfasında farklı YAML verilmişse, aynı şema ile `machines/` altına kopyalanıp testlere bağlanabilir.
 
