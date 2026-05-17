@@ -9,6 +9,7 @@ accept_states: [q_accept]
 reject_states: [q_reject]
 transitions:
   - {state: q0, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q0, read: "0", next: q_reject, write: "0", move: R}
   - {state: q0, read: "1", next: q1r, write: "1", move: R}
   - {state: q1r, read: "B", next: q1l, write: "B", move: L}
   - {state: q1l, read: "1", next: q_accept, write: "1", move: R}

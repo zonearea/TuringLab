@@ -58,3 +58,29 @@ Proje ilerlemesinin kısa kaydı. Her gün için `## YYYY-MM-DD` başlığı alt
 - **Commit’ler:** `git log --oneline` ile bakılır.
 - **Yarın:** İstenirse `q0,0 → q_reject` ile geçersiz girdi ret; el kitabı son kontrol.
 - **Not / blokaj:** Yok.
+
+---
+
+## 2026-05-17
+
+- **Planlanan:** Push/git kontrolü; `q0,0 → q_reject`; geçersiz girdi testi; `REPORT.md` taslak; devam planı; pytest.
+- **Yapılan:**
+  - [scripts/gen_unary_to_binary.py](scripts/gen_unary_to_binary.py): `q0` + `0` → `q_reject`; YAML yenilendi.
+  - [tests/test_machines.py](tests/test_machines.py): `test_unary_to_binary_invalid_zero_reject`.
+  - [docs/design_notes.md](docs/design_notes.md): kenar durumu güncellendi.
+  - [REPORT.md](REPORT.md): Bölüm 3 mini-rapor taslağı (özet, Bölüm 1–2, sınırlar, teslim checklist).
+- **Test:** `python -m pytest tests/ -q` — 23 passed.
+- **Commit’ler:** Bu oturum commit’i — mesaj kullanıcıya verildi.
+- **Yarın:** El kitabında TM-2/3 zorunlu mu netleştir; `REPORT.md` doldurma; günlük girişi.
+- **Not / blokaj:** Remote ile yerel `main` senkron (14 Mayıs son push); bugün yeni commit bekleniyor.
+
+---
+
+## Devam planı (Bölüm 2–3)
+
+| Öncelik | İş | Tahmini |
+|--------|-----|---------|
+| 1 | El kitabı: Bölüm 2’de ek TM (TM-2, TM-3) var mı — yoksa TM-1 yeter | 30 dk |
+| 2 | `REPORT.md` taslağı → teslim metni (son paragraf, öğrenilenler) | 1–2 saat |
+| 3 | Rubrik: `DAILY_LOG` eksik günler, README son kontrol | 30 dk |
+| 4 | Son `pytest tests/ -q` + `git push origin main` | 10 dk |

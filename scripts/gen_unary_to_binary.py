@@ -27,6 +27,7 @@ def main() -> None:
     rows: list = []
 
     t(rows, "q0", B, "q_reject", B, "R")
+    t(rows, "q0", "0", "q_reject", "0", "R")
     t(rows, "q0", "1", "q1r", "1", "R")
     t(rows, "q1r", B, "q1l", B, "L")
     t(rows, "q1l", "1", "q_accept", "1", "R")

@@ -38,6 +38,12 @@ def test_unary_to_binary_empty_reject(unary_to_binary: SingleTapeTM) -> None:
     assert r.reason == "reject"
 
 
+def test_unary_to_binary_invalid_zero_reject(unary_to_binary: SingleTapeTM) -> None:
+    r = unary_to_binary.run(input_string="0", max_steps=100, verbose=False)
+    assert r.accepted is False
+    assert r.reason == "reject"
+
+
 def test_unary_to_binary_overflow_reject(unary_to_binary: SingleTapeTM) -> None:
     """K=8 bit alan: n>255 taşma yolu q_rv → q_reject."""
     r = unary_to_binary.run(input_string="1" * 256, max_steps=500_000, verbose=False)
