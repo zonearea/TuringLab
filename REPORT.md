@@ -31,10 +31,19 @@ python -m pytest tests/ -q
 
 - TM-1: n>255 ret; girdi yalnızca `1` (başta `0` veya boş ret).
 - Palindrom makinesi Goldberg FCS tabanlı; uyuşmazlıkta `q_reject`.
+- Bölüm 2 ödev makinesi: yalnızca TM-1 (`unary_to_binary`); ek TM el kitabında açıkça istenmedikçe gerekmez.
+
+## Öğrenilenler
+
+- Deterministik TM’de her `(durum, okunan)` çifti tek geçiş olmalı; YAML yüklerken çakışma reddedilir.
+- Seyrek şerit ve negatif kafa indeksi, sol taşma senaryolarını basitleştirir.
+- Karmaşık makinelerde ayırıcı sembol (`X`) ve sabit genişlikte sayaç alanı tasarımı okunabilirliği artırır.
+- Testler (`pytest`) regresyonu yakalar; TM-1’de `q_lr` / `q_rw1` hataları test olmadan geç fark edilmişti.
 
 ## Teslim öncesi yapılacaklar
 
-- [ ] El kitabı Bölüm 2–3 kontrol listesi (ek TM var mı?)
-- [ ] `REPORT.md` son okuma ve eksik maddeler
-- [ ] `docs/DAILY_LOG.md` teslim haftası girişleri
+- [x] Bölüm 2 TM-1: YAML, test, `design_notes`
+- [x] `docs/DAILY_LOG.md` 11–19 arası girişler
+- [ ] El kitabı Bölüm 3 son rubrik kontrolü
+- [ ] `REPORT.md` son okuma (hoca formatı varsa uyarla)
 - [ ] Son `pytest` + GitHub `main` push

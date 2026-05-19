@@ -4,6 +4,9 @@
 
 Selçuk Üniversitesi Hesaplama Kuramı — **TuringLab** final ödevi: tek şeritli deterministik TM motoru (YAML), örnek makineler ve pytest.
 
+- Mini-rapor: [REPORT.md](REPORT.md)
+- Günlük: [docs/DAILY_LOG.md](docs/DAILY_LOG.md)
+
 ## Gereksinimler
 
 - Python 3.10+

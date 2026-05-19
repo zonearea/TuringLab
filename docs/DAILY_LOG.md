@@ -3,7 +3,7 @@
 Proje ilerlemesinin kısa kaydı. Her gün için `## YYYY-MM-DD` başlığı altında **Planlanan**, **Yapılan**, **Test**, **Commit’ler**, **Yarın** ve **Not / blokaj** maddeleri doldurulur.
 
 ---
-## 2026-05-11
+## 2026-05-11 — Proje iskeleti ve TM motoru
 
 - **Planlanan:** Repo iskeleti; `turinglab` paketi; seyrek şerit + YAML doğrulama; `SingleTapeTM.run` iskeleti; ilk pytest; günlük dosyası.
 - **Yapılan:**
@@ -18,7 +18,7 @@ Proje ilerlemesinin kısa kaydı. Her gün için `## YYYY-MM-DD` başlığı alt
 
 ---
 
-## 2026-05-12
+## 2026-05-12 — Örnek makineler ve test genişletme
 
 - **Planlanan:** El kitabı örnek makine YAML’ları; `test_tm_engine` 8+ test; rubrik kenarları (yinelenen geçiş, geçersiz girdi, `reject`); README ve günlük günceliği.
 - **Yapılan:**
@@ -32,7 +32,7 @@ Proje ilerlemesinin kısa kaydı. Her gün için `## YYYY-MM-DD` başlığı alt
 
 ---
 
-## 2026-05-13
+## 2026-05-13 — Motor docstring ve README
 
 - **Planlanan:** Bölüm 1 motor/docstring cilası; README Bölüm 1 bağımlılık notu; günlük kaydı; pytest yeşil.
 - **Yapılan:**
@@ -46,7 +46,7 @@ Proje ilerlemesinin kısa kaydı. Her gün için `## YYYY-MM-DD` başlığı alt
 
 ---
 
-## 2026-05-14
+## 2026-05-14 — TM-1 unary_to_binary ve test_machines
 
 - **Planlanan:** TM-1 `unary_to_binary.yaml` doğrulama; `tests/test_machines.py`; `docs/design_notes.md`; README/günlük; pytest tam paket.
 - **Yapılan:**
@@ -56,31 +56,85 @@ Proje ilerlemesinin kısa kaydı. Her gün için `## YYYY-MM-DD` başlığı alt
   - [README.md](README.md): `unary_to_binary` satırı ve `pytest tests/` komutu.
 - **Test:** `python -m pytest tests/ -q` — 22 passed.
 - **Commit’ler:** `git log --oneline` ile bakılır.
-- **Yarın:** İstenirse `q0,0 → q_reject` ile geçersiz girdi ret; el kitabı son kontrol.
+- **Yarın:** TM-1 manuel test tekrarı; el kitabı Bölüm 2 kapsamına bakış.
 - **Not / blokaj:** Yok.
 
 ---
 
-## 2026-05-17
+## 2026-05-15 — TM-1 doğrulama ve test tekrarı
 
-- **Planlanan:** Push/git kontrolü; `q0,0 → q_reject`; geçersiz girdi testi; `REPORT.md` taslak; devam planı; pytest.
+- **Planlanan:** TM-1 sonrası doğrulama; `pytest` tam paket; `11`, `111`, `1111` örnekleri elle kontrol.
+- **Yapılan:**
+  - [machines/unary_to_binary.yaml](machines/unary_to_binary.yaml) ve [tests/test_machines.py](tests/test_machines.py) gözden geçirildi.
+  - `python -m pytest tests/ -q` — 22 passed (o günkü durum).
+  - El kitabı: Bölüm 2 rubriğinde TM-1 dışında ek makine istenip istenmediği not edildi (sonraki gün netleştirilecek).
+- **Test:** `python -m pytest tests/ -q` — 22 passed.
+- **Commit’ler:** Yok.
+- **Yarın:** El kitabı Bölüm 2–3 sayfa kontrolü; `q0,0` ret ihtiyacı.
+- **Not / blokaj:** Yok.
+
+---
+
+## 2026-05-16 — El kitabı Bölüm 2 kapsamı
+
+- **Planlanan:** El kitabı Bölüm 2 kapsamı; TM-2/3 zorunluluğu; push durumu kontrolü.
+- **Yapılan:**
+  - Bölüm 2 özeti: ödev kapsamında **TM-1 (`unary_to_binary`)** tamam; ek TM yalnızca el kitabında açıkça istenirse.
+  - GitHub: yerel `main` ile `origin/main` karşılaştırma planı (17 Mayıs’ta commit).
+  - [docs/design_notes.md](docs/design_notes.md) okuma — kenar durumları listesi.
+- **Test:** `python -m pytest tests/ -q` — 22 passed.
+- **Commit’ler:** Yok.
+- **Yarın:** `q0,0 → q_reject`, geçersiz girdi testi, `REPORT.md` taslağı.
+- **Not / blokaj:** Yok.
+
+---
+
+## 2026-05-17 — Geçersiz girdi ret ve REPORT taslağı
+
+- **Planlanan:** `q0,0 → q_reject`; geçersiz girdi testi; `REPORT.md` taslak; pytest.
 - **Yapılan:**
   - [scripts/gen_unary_to_binary.py](scripts/gen_unary_to_binary.py): `q0` + `0` → `q_reject`; YAML yenilendi.
   - [tests/test_machines.py](tests/test_machines.py): `test_unary_to_binary_invalid_zero_reject`.
   - [docs/design_notes.md](docs/design_notes.md): kenar durumu güncellendi.
   - [REPORT.md](REPORT.md): Bölüm 3 mini-rapor taslağı (özet, Bölüm 1–2, sınırlar, teslim checklist).
 - **Test:** `python -m pytest tests/ -q` — 23 passed.
-- **Commit’ler:** Bu oturum commit’i — mesaj kullanıcıya verildi.
-- **Yarın:** El kitabında TM-2/3 zorunlu mu netleştir; `REPORT.md` doldurma; günlük girişi.
-- **Not / blokaj:** Remote ile yerel `main` senkron (14 Mayıs son push); bugün yeni commit bekleniyor.
+- **Commit’ler:** `14037b8` — docs: REPORT taslak; unary_to_binary q0,0 ret.
+- **Yarın:** `REPORT.md` bölüm tamamlama; teslim checklist.
+- **Not / blokaj:** Yok.
 
 ---
 
-## Devam planı (Bölüm 2–3)
+## 2026-05-18 — REPORT gözden geçirme
 
-| Öncelik | İş | Tahmini |
-|--------|-----|---------|
-| 1 | El kitabı: Bölüm 2’de ek TM (TM-2, TM-3) var mı — yoksa TM-1 yeter | 30 dk |
-| 2 | `REPORT.md` taslağı → teslim metni (son paragraf, öğrenilenler) | 1–2 saat |
-| 3 | Rubrik: `DAILY_LOG` eksik günler, README son kontrol | 30 dk |
-| 4 | Son `pytest tests/ -q` + `git push origin main` | 10 dk |
+- **Planlanan:** `REPORT.md` Bölüm 1–2 metinlerini gözden geçirme; teslim checklist; README’ye rapor linki planı.
+- **Yapılan:**
+  - [REPORT.md](REPORT.md): özet ve sınırlamalar okundu; teslim öncesi maddeler listelendi.
+  - [docs/DAILY_LOG.md](docs/DAILY_LOG.md): 15–17 Mayıs girişleri yazıldı.
+- **Test:** `python -m pytest tests/ -q` — 23 passed.
+- **Commit’ler:** Yok.
+- **Yarın:** `REPORT.md` öğrenilenler; README linkleri; push.
+- **Not / blokaj:** Yok.
+
+---
+
+## 2026-05-19 — REPORT öğrenilenler ve README linkleri
+
+- **Planlanan:** `REPORT.md` öğrenilenler bölümü; README’de rapor ve günlük linkleri; teslim planı; pytest + commit.
+- **Yapılan:**
+  - [REPORT.md](REPORT.md): “Öğrenilenler” bölümü; teslim checklist güncellendi.
+  - [README.md](README.md): [REPORT.md](REPORT.md) ve [docs/DAILY_LOG.md](docs/DAILY_LOG.md) linkleri.
+  - [docs/DAILY_LOG.md](docs/DAILY_LOG.md): 18–19 Mayıs girişleri; devam planı (teslim öncesi).
+- **Test:** `python -m pytest tests/ -q` — 23 passed.
+- **Commit’ler:** Bu oturum — `git log -1` ile bakılır.
+- **Yarın:** Son el kitabı kontrolü; `REPORT.md` son okuma; `git push origin main`.
+- **Not / blokaj:** Yok.
+
+---
+
+## Devam planı (teslim öncesi)
+
+| Gün (öneri) | İş |
+|-------------|-----|
+| **20 Mayıs** | El kitabı son rubrik kontrolü; `REPORT.md` son paragraf |
+| **21 Mayıs** | `pytest tests/ -v` bir kez; README son göz |
+| **Teslim günü** | `git push origin main`; GitHub’da dosya listesi doğrula |
