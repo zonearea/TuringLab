@@ -44,6 +44,7 @@ python -m pytest tests/ -q
 
 - [x] Bölüm 2 TM-1: YAML, test, `design_notes`
 - [x] `docs/DAILY_LOG.md` 11–19 arası girişler
-- [ ] El kitabı Bölüm 3 son rubrik kontrolü
-- [ ] `REPORT.md` son okuma (hoca formatı varsa uyarla)
-- [ ] Son `pytest` + GitHub `main` push
+- [x] El kitabı Bölüm 1–2 rubrik (motor, örnekler, TM-1, testler)
+- [x] `REPORT.md` son okuma (taslak teslim için yeterli)
+- [x] Son `pytest` (23 passed)
+- [ ] GitHub `main` push doğrulama (21 Mayıs)

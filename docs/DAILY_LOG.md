@@ -125,16 +125,32 @@ Proje ilerlemesinin kısa kaydı. Her gün için `## YYYY-MM-DD` başlığı alt
   - [README.md](README.md): [REPORT.md](REPORT.md) ve [docs/DAILY_LOG.md](docs/DAILY_LOG.md) linkleri.
   - [docs/DAILY_LOG.md](docs/DAILY_LOG.md): 18–19 Mayıs girişleri; devam planı (teslim öncesi).
 - **Test:** `python -m pytest tests/ -q` — 23 passed.
-- **Commit’ler:** Bu oturum — `git log -1` ile bakılır.
-- **Yarın:** Son el kitabı kontrolü; `REPORT.md` son okuma; `git push origin main`.
+- **Commit’ler:** `b6f6744` — günlük başlıkları ve REPORT checklist.
+- **Yarın:** Rubrik son kontrolü; video için `pytest -v` provası.
 - **Not / blokaj:** Yok.
 
 ---
 
-## Devam planı (teslim öncesi)
+## 2026-05-20 — Rubrik ve REPORT son kontrol
 
-| Gün (öneri) | İş |
-|-------------|-----|
-| **20 Mayıs** | El kitabı son rubrik kontrolü; `REPORT.md` son paragraf |
-| **21 Mayıs** | `pytest tests/ -v` bir kez; README son göz |
-| **Teslim günü** | `git push origin main`; GitHub’da dosya listesi doğrula |
+- **Planlanan:** El kitabı Bölüm 1–3 rubrik; `REPORT.md` son okuma.
+- **Yapılan:**
+  - Bölüm 1–2 teslim maddeleri repoda mevcut (motor, örnek makineler, TM-1, testler).
+  - [REPORT.md](REPORT.md): özet ve sınırlamalar son gözden geçirildi.
+- **Test:** `python -m pytest tests/ -q` — 23 passed.
+- **Commit’ler:** Yok.
+- **Yarın:** Video çekimi; `pytest -v`; GitHub push doğrulama.
+- **Not / blokaj:** Yok.
+
+---
+
+## 2026-05-21 — Test provası ve GitHub push
+
+- **Planlanan:** `pytest tests/ -v` (video); günlük 20–21; `git push origin main`.
+- **Yapılan:**
+  - Tam test paketi çalıştırıldı (video için komut hazır).
+  - [docs/DAILY_LOG.md](docs/DAILY_LOG.md): 20–21 Mayıs girişleri.
+- **Test:** `python -m pytest tests/ -q` — 23 passed.
+- **Commit’ler:** Bu oturum — günlük 20–21.
+- **Yarın:** Video yükleme / teslim (hoca talimatına göre).
+- **Not / blokaj:** Yok.

@@ -20,6 +20,12 @@ Selçuk Üniversitesi Hesaplama Kuramı — **TuringLab** final ödevi: tek şer
 python -m pytest tests/ -q
 ```
 
+Ayrıntılı çıktı (demo / video):
+
+```bash
+python -m pytest tests/ -v
+```
+
 Tüm testler yeşil olmalı (Bölüm 1 rubriği: en az 8 test; Bölüm 2’de `test_machines.py` eklenir).
 
 ## Örnek makineler (`machines/`)
