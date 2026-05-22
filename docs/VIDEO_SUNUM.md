@@ -4,6 +4,8 @@
 **Süre:** ~8–10 dakika  
 **Örnek:** [Doğukan Sancar — TuringLab demo](https://www.youtube.com/watch?v=FtciwbH_vqg)
 
+**Makine makine anlatım + yaşanan zorluklar:** [SUNUM_MAKINELER.md](SUNUM_MAKINELER.md)
+
 Kayıt öncesi terminalde UTF-8 (Türkçe çıktı için):
 
 ```powershell

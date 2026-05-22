@@ -28,15 +28,23 @@ Ayrıntılı çıktı (demo / video):
 python -m pytest tests/ -v
 ```
 
-Video kaydı için terminal demoları (Bölüm 1–8):
+Adım adım makine gösterimi (`Adım | Durum | Şerit | Hareket`):
 
 ```powershell
 chcp 65001
-python scripts/demo_video.py --all
-# veya: .\scripts\run_video_demo.ps1
+python demo.py binary_increment
+python demo.py unary_to_binary
+python demo.py binary_compare
+python demo.py string_copy
+python demo.py unary_div3
+python demo.py --list
 ```
 
-Tek bölüm: `python scripts/demo_video.py --section 3` (TM-1 verbose). Ayrıntı: [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md).
+Tüm liste: [docs/DEMO_KOMUTLAR.md](docs/DEMO_KOMUTLAR.md).  
+**Sunum metni (her makine + zorluklar):** [docs/SUNUM_MAKINELER.md](docs/SUNUM_MAKINELER.md).  
+Sırayla: `python demo.py --only odev`
+
+Video senaryosu (Bölüm 1–8): `python scripts/demo_video.py --all` — [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md).
 
 Tüm testler yeşil olmalı (Bölüm 1 rubriği: en az 8 test; Bölüm 2’de `test_machines.py` eklenir).
 
