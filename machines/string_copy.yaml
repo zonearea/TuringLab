@@ -1,0 +1,85 @@
+name: "string_copy"
+description: "w -> w#w kopya (ornek: abba -> abba#abba)."
+states: [q0, q_accept, q_done, q_home, q_loop, q_mka, q_mkb, q_puta, q_putb, q_reject, q_reta, q_retb, q_run, q_tenda, q_tendb, q_wa, q_wb]
+input_alphabet: ["a", "b"]
+tape_alphabet: ["a", "b", "#", "B", "X"]
+blank: "B"
+start_state: q0
+accept_states: [q_accept]
+reject_states: [q_reject]
+transitions:
+  - {state: q0, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q0, read: "#", next: q_reject, write: "#", move: R}
+  - {state: q0, read: "X", next: q_reject, write: "X", move: R}
+  - {state: q0, read: "a", next: q_run, write: "a", move: R}
+  - {state: q0, read: "b", next: q_run, write: "b", move: R}
+  - {state: q_run, read: "a", next: q_run, write: "a", move: R}
+  - {state: q_run, read: "b", next: q_run, write: "b", move: R}
+  - {state: q_run, read: "X", next: q_run, write: "X", move: R}
+  - {state: q_run, read: "B", next: q_home, write: "#", move: L}
+  - {state: q_run, read: "#", next: q_reject, write: "#", move: R}
+  - {state: q_home, read: "a", next: q_home, write: "a", move: L}
+  - {state: q_home, read: "b", next: q_home, write: "b", move: L}
+  - {state: q_home, read: "#", next: q_home, write: "#", move: L}
+  - {state: q_home, read: "X", next: q_home, write: "X", move: L}
+  - {state: q_home, read: "B", next: q_loop, write: "B", move: R}
+  - {state: q_loop, read: "a", next: q_mka, write: "X", move: R}
+  - {state: q_loop, read: "b", next: q_mkb, write: "X", move: R}
+  - {state: q_loop, read: "X", next: q_loop, write: "X", move: R}
+  - {state: q_loop, read: "#", next: q_done, write: "#", move: L}
+  - {state: q_loop, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_mka, read: "a", next: q_mka, write: "a", move: R}
+  - {state: q_mkb, read: "a", next: q_mkb, write: "a", move: R}
+  - {state: q_mka, read: "b", next: q_mka, write: "b", move: R}
+  - {state: q_mkb, read: "b", next: q_mkb, write: "b", move: R}
+  - {state: q_mka, read: "X", next: q_mka, write: "X", move: R}
+  - {state: q_mkb, read: "X", next: q_mkb, write: "X", move: R}
+  - {state: q_mka, read: "#", next: q_tenda, write: "#", move: R}
+  - {state: q_mkb, read: "#", next: q_tendb, write: "#", move: R}
+  - {state: q_mka, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_mkb, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_tenda, read: "a", next: q_tenda, write: "a", move: R}
+  - {state: q_tendb, read: "a", next: q_tendb, write: "a", move: R}
+  - {state: q_tenda, read: "b", next: q_tenda, write: "b", move: R}
+  - {state: q_tendb, read: "b", next: q_tendb, write: "b", move: R}
+  - {state: q_tenda, read: "X", next: q_tenda, write: "X", move: R}
+  - {state: q_tendb, read: "X", next: q_tendb, write: "X", move: R}
+  - {state: q_tenda, read: "#", next: q_tenda, write: "#", move: R}
+  - {state: q_tendb, read: "#", next: q_tendb, write: "#", move: R}
+  - {state: q_tenda, read: "B", next: q_wa, write: "B", move: L}
+  - {state: q_tendb, read: "B", next: q_wb, write: "B", move: L}
+  - {state: q_wa, read: "a", next: q_wa, write: "a", move: L}
+  - {state: q_wa, read: "b", next: q_wa, write: "b", move: L}
+  - {state: q_wa, read: "#", next: q_wa, write: "#", move: L}
+  - {state: q_wa, read: "X", next: q_puta, write: "X", move: R}
+  - {state: q_wa, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_wb, read: "a", next: q_wb, write: "a", move: L}
+  - {state: q_wb, read: "b", next: q_wb, write: "b", move: L}
+  - {state: q_wb, read: "#", next: q_wb, write: "#", move: L}
+  - {state: q_wb, read: "X", next: q_putb, write: "X", move: R}
+  - {state: q_wb, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_puta, read: "a", next: q_puta, write: "a", move: R}
+  - {state: q_putb, read: "a", next: q_putb, write: "a", move: R}
+  - {state: q_puta, read: "b", next: q_puta, write: "b", move: R}
+  - {state: q_putb, read: "b", next: q_putb, write: "b", move: R}
+  - {state: q_puta, read: "#", next: q_puta, write: "#", move: R}
+  - {state: q_putb, read: "#", next: q_putb, write: "#", move: R}
+  - {state: q_puta, read: "X", next: q_puta, write: "X", move: R}
+  - {state: q_putb, read: "X", next: q_putb, write: "X", move: R}
+  - {state: q_puta, read: "B", next: q_reta, write: "a", move: L}
+  - {state: q_putb, read: "B", next: q_retb, write: "b", move: L}
+  - {state: q_reta, read: "a", next: q_reta, write: "a", move: L}
+  - {state: q_retb, read: "a", next: q_retb, write: "a", move: L}
+  - {state: q_reta, read: "b", next: q_reta, write: "b", move: L}
+  - {state: q_retb, read: "b", next: q_retb, write: "b", move: L}
+  - {state: q_reta, read: "#", next: q_reta, write: "#", move: L}
+  - {state: q_retb, read: "#", next: q_retb, write: "#", move: L}
+  - {state: q_reta, read: "X", next: q_loop, write: "a", move: R}
+  - {state: q_retb, read: "X", next: q_loop, write: "b", move: R}
+  - {state: q_reta, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_retb, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_done, read: "X", next: q_done, write: "X", move: L}
+  - {state: q_done, read: "a", next: q_done, write: "a", move: L}
+  - {state: q_done, read: "b", next: q_done, write: "b", move: L}
+  - {state: q_done, read: "#", next: q_done, write: "#", move: L}
+  - {state: q_done, read: "B", next: q_accept, write: "B", move: R}

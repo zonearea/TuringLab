@@ -1,0 +1,18 @@
+name: "bonus_two_tape_copy"
+description: "Bonus: girdiyi tape0'dan tape1'e kopyalar (sonunda tape1 = girdi)."
+num_tapes: 2
+states: [q0, q_copy, q_done, q_accept, q_reject]
+input_alphabet: ["a", "b"]
+tape_alphabet: ["a", "b", "B"]
+blank: "B"
+start_state: q0
+accept_states: [q_accept]
+reject_states: [q_reject]
+transitions:
+  - {state: q0, read: ["a", "B"], next: q_copy, write: ["a", "a"], move: [R, R]}
+  - {state: q0, read: ["b", "B"], next: q_copy, write: ["b", "b"], move: [R, R]}
+  - {state: q0, read: ["B", "B"], next: q_done, write: ["B", "B"], move: [R, R]}
+  - {state: q_copy, read: ["a", "B"], next: q_copy, write: ["a", "a"], move: [R, R]}
+  - {state: q_copy, read: ["b", "B"], next: q_copy, write: ["b", "b"], move: [R, R]}
+  - {state: q_copy, read: ["B", "B"], next: q_done, write: ["B", "B"], move: [R, R]}
+  - {state: q_done, read: ["B", "B"], next: q_accept, write: ["B", "B"], move: [R, R]}

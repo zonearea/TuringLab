@@ -1,0 +1,4 @@
+# Bonus modülleri (isteğe bağlı — Bölüm 1 dışı)
+-r requirements.txt
+matplotlib>=3.7
+Pillow>=10.0

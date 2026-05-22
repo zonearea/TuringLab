@@ -1,0 +1,76 @@
+name: "binary_compare"
+description: "Sol ikili > sag ikili ise kabul (ornek: 1100#1011)."
+states: [q0, q_accept, q_back, q_backl, q_g0, q_g1, q_left_done, q_next, q_prevl, q_r0, q_r1, q_reject, q_scan]
+input_alphabet: ["0", "1", "#"]
+tape_alphabet: ["0", "1", "#", "B", "r", "s"]
+blank: "B"
+start_state: q0
+accept_states: [q_accept]
+reject_states: [q_reject]
+transitions:
+  - {state: q0, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q0, read: "#", next: q_reject, write: "#", move: R}
+  - {state: q0, read: "r", next: q_reject, write: "r", move: R}
+  - {state: q0, read: "s", next: q_reject, write: "s", move: R}
+  - {state: q0, read: "0", next: q_scan, write: "0", move: R}
+  - {state: q0, read: "1", next: q_scan, write: "1", move: R}
+  - {state: q_scan, read: "0", next: q_scan, write: "0", move: R}
+  - {state: q_scan, read: "1", next: q_scan, write: "1", move: R}
+  - {state: q_scan, read: "r", next: q_scan, write: "r", move: R}
+  - {state: q_scan, read: "s", next: q_scan, write: "s", move: R}
+  - {state: q_scan, read: "#", next: q_back, write: "#", move: L}
+  - {state: q_scan, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_back, read: "0", next: q_back, write: "0", move: L}
+  - {state: q_back, read: "1", next: q_back, write: "1", move: L}
+  - {state: q_back, read: "#", next: q_back, write: "#", move: L}
+  - {state: q_back, read: "r", next: q_back, write: "r", move: L}
+  - {state: q_back, read: "s", next: q_back, write: "s", move: L}
+  - {state: q_back, read: "B", next: q_next, write: "B", move: R}
+  - {state: q_next, read: "r", next: q_next, write: "r", move: R}
+  - {state: q_next, read: "s", next: q_next, write: "s", move: R}
+  - {state: q_next, read: "B", next: q_next, write: "B", move: R}
+  - {state: q_next, read: "0", next: q_g0, write: "r", move: R}
+  - {state: q_next, read: "1", next: q_g1, write: "s", move: R}
+  - {state: q_next, read: "#", next: q_left_done, write: "#", move: R}
+  - {state: q_g0, read: "0", next: q_g0, write: "0", move: R}
+  - {state: q_g0, read: "1", next: q_g0, write: "1", move: R}
+  - {state: q_g0, read: "r", next: q_g0, write: "r", move: R}
+  - {state: q_g0, read: "s", next: q_g0, write: "s", move: R}
+  - {state: q_g0, read: "#", next: q_r0, write: "#", move: R}
+  - {state: q_g0, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_g1, read: "0", next: q_g1, write: "0", move: R}
+  - {state: q_g1, read: "1", next: q_g1, write: "1", move: R}
+  - {state: q_g1, read: "r", next: q_g1, write: "r", move: R}
+  - {state: q_g1, read: "s", next: q_g1, write: "s", move: R}
+  - {state: q_g1, read: "#", next: q_r1, write: "#", move: R}
+  - {state: q_g1, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_r0, read: "r", next: q_r0, write: "r", move: R}
+  - {state: q_r0, read: "s", next: q_r0, write: "s", move: R}
+  - {state: q_r0, read: "0", next: q_backl, write: "r", move: L}
+  - {state: q_r0, read: "1", next: q_reject, write: "1", move: R}
+  - {state: q_r0, read: "#", next: q_reject, write: "#", move: R}
+  - {state: q_r0, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_r1, read: "r", next: q_r1, write: "r", move: R}
+  - {state: q_r1, read: "s", next: q_r1, write: "s", move: R}
+  - {state: q_r1, read: "0", next: q_accept, write: "0", move: R}
+  - {state: q_r1, read: "1", next: q_backl, write: "s", move: L}
+  - {state: q_r1, read: "#", next: q_reject, write: "#", move: R}
+  - {state: q_r1, read: "B", next: q_reject, write: "B", move: R}
+  - {state: q_backl, read: "0", next: q_backl, write: "0", move: L}
+  - {state: q_backl, read: "1", next: q_backl, write: "1", move: L}
+  - {state: q_backl, read: "r", next: q_backl, write: "r", move: L}
+  - {state: q_backl, read: "s", next: q_backl, write: "s", move: L}
+  - {state: q_backl, read: "#", next: q_backl, write: "#", move: L}
+  - {state: q_backl, read: "B", next: q_prevl, write: "B", move: L}
+  - {state: q_prevl, read: "r", next: q_prevl, write: "r", move: L}
+  - {state: q_prevl, read: "s", next: q_prevl, write: "s", move: L}
+  - {state: q_prevl, read: "#", next: q_prevl, write: "#", move: L}
+  - {state: q_prevl, read: "0", next: q_next, write: "0", move: R}
+  - {state: q_prevl, read: "1", next: q_next, write: "1", move: R}
+  - {state: q_prevl, read: "B", next: q_next, write: "B", move: R}
+  - {state: q_left_done, read: "r", next: q_left_done, write: "r", move: R}
+  - {state: q_left_done, read: "s", next: q_left_done, write: "s", move: R}
+  - {state: q_left_done, read: "0", next: q_reject, write: "0", move: R}
+  - {state: q_left_done, read: "1", next: q_accept, write: "1", move: R}
+  - {state: q_left_done, read: "#", next: q_reject, write: "#", move: R}
+  - {state: q_left_done, read: "B", next: q_reject, write: "B", move: R}

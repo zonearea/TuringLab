@@ -6,6 +6,8 @@ Selçuk Üniversitesi Hesaplama Kuramı — **TuringLab** final ödevi: tek şer
 
 - Mini-rapor: [REPORT.md](REPORT.md)
 - Günlük: [docs/DAILY_LOG.md](docs/DAILY_LOG.md)
+- **Video sunum:** [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md) — metin, komutlar, beklenen çıktılar
+- Bonus modüller: [docs/BONUS.md](docs/BONUS.md) (`pip install -r requirements-bonus.txt`)
 
 ## Gereksinimler
 
@@ -26,6 +28,16 @@ Ayrıntılı çıktı (demo / video):
 python -m pytest tests/ -v
 ```
 
+Video kaydı için terminal demoları (Bölüm 1–8):
+
+```powershell
+chcp 65001
+python scripts/demo_video.py --all
+# veya: .\scripts\run_video_demo.ps1
+```
+
+Tek bölüm: `python scripts/demo_video.py --section 3` (TM-1 verbose). Ayrıntı: [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md).
+
 Tüm testler yeşil olmalı (Bölüm 1 rubriği: en az 8 test; Bölüm 2’de `test_machines.py` eklenir).
 
 ## Örnek makineler (`machines/`)
@@ -36,7 +48,12 @@ Tüm testler yeşil olmalı (Bölüm 1 rubriği: en az 8 test; Bölüm 2’de `t
 | [machines/unary_increment.yaml](machines/unary_increment.yaml) | Unary `1^n` → `1^(n+1)` |
 | [machines/even_a.yaml](machines/even_a.yaml) | `{a,b}` üzerinde çift sayıda `a` |
 | [machines/binary_palindrome.yaml](machines/binary_palindrome.yaml) | `{0,1}` palindrom (geçişler Paul Goldberg [FCS örneği](http://www.cs.ox.ac.uk/people/paul.goldberg/FCS/tm1.html) tabanı; uyuşmazlıkta `q_reject`) |
-| [machines/unary_to_binary.yaml](machines/unary_to_binary.yaml) | Unary `1^n` → n’nin ikili yazımı (K=8 bit alan; n≤255); [docs/design_notes.md](docs/design_notes.md) |
+| [machines/unary_to_binary.yaml](machines/unary_to_binary.yaml) | Unary `1^n` → n’nin ikili yazımı (K=8 bit alan; n≤255) |
+| [machines/binary_compare.yaml](machines/binary_compare.yaml) | `sol#sag` — sol ikili > sağ ikili ise kabul |
+| [machines/string_copy.yaml](machines/string_copy.yaml) | `w` → `w#w` (`{a,b}`) |
+| [machines/unary_div3.yaml](machines/unary_div3.yaml) | `1^n`, n mod 3 = 0 ise kabul |
+
+Bölüm 2 tasarım notları: [docs/design_notes.md](docs/design_notes.md).
 
 Ders sayfasında farklı YAML verilmişse, aynı şema ile `machines/` altına kopyalanıp testlere bağlanabilir.
 

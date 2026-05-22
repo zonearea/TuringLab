@@ -1,25 +1,29 @@
-# TuringLab — Mini-rapor (Bölüm 3 — taslak)
+# TuringLab — Mini-rapor (Bölüm 3)
 
 **Öğrenci:** Hüseyin Berkay Kayıkçı  
 **Proje:** `turinglab` — tek şeritli deterministik TM motoru (YAML + pytest)
 
 ## Özet
 
-Python paketi `turinglab` ile YAML tanımlı Turing makineleri yüklenip simüle edilir. Bölüm 1’de motor ve el kitabı örnek makineleri; Bölüm 2’de TM-1 (`unary_to_binary`) tamamlandı. Tüm testler `pytest tests/` ile çalıştırılır.
+Python paketi `turinglab` ile YAML tanımlı Turing makineleri yüklenip simüle edilir. Bölüm 1’de motor ve el kitabı örnekleri; Bölüm 2’de dört ödev makinesi (unary→binary, ikili karşılaştırma, dize kopyalama, unary mod 3) tamamlandı. Testler: `python -m pytest tests/ -q`.
 
 ## Bölüm 1 — Motor
 
 - `SingleTapeTM.from_yaml`, `run`: kabul, ret, `no_transition`, `timeout`.
-- Seyrek şerit (`dict[int, str]`), negatif kafa indeksi.
-- Örnek makineler: `binary_increment`, `unary_increment`, `even_a`, `binary_palindrome`.
-- Testler: `tests/test_tm_engine.py` (12 senaryo).
+- Seyrek şerit, negatif kafa indeksi.
+- Örnekler: `binary_increment`, `unary_increment`, `even_a`, `binary_palindrome`.
+- Testler: `tests/test_tm_engine.py`.
 
-## Bölüm 2 — TM-1
+## Bölüm 2 — Ödev makineleri
 
-- **Görev:** Unary `1^n` (n≥1) → n’nin ikili yazımı; n≤255 (K=8 bit sayaç alanı).
-- **Dosya:** `machines/unary_to_binary.yaml`; tasarım: `docs/design_notes.md`.
-- **Algoritma (kısa):** Sonuna ayırıcı `X`, sağda ikili sayaç; her tur bir unary `1` silinir ve sayaç +1; bitince baştaki sıfırlar temizlenir.
-- **Testler:** `tests/test_machines.py` — kabul örnekleri, boş/`0` ret, taşma ret.
+| TM | Dosya | Görev |
+|----|-------|--------|
+| TM-1 | `unary_to_binary.yaml` | `1^n` → n’nin ikili yazımı (n≤255) |
+| TM-2 | `binary_compare.yaml` | Sol ikili > sağ ikili ise kabul (`1100#1011`) |
+| TM-3 | `string_copy.yaml` | `w` → `w#w` (`abba` → `abba#abba`) |
+| TM-4 | `unary_div3.yaml` | `1^n`, n mod 3 = 0 ise kabul |
+
+Tasarım ayrıntıları: [docs/design_notes.md](docs/design_notes.md). Üretim betikleri: `scripts/gen_*.py`.
 
 ## Test komutu
 
@@ -29,22 +33,24 @@ python -m pytest tests/ -q
 
 ## Sınırlamalar
 
-- TM-1: n>255 ret; girdi yalnızca `1` (başta `0` veya boş ret).
-- Palindrom makinesi Goldberg FCS tabanlı; uyuşmazlıkta `q_reject`.
-- Bölüm 2 ödev makinesi: yalnızca TM-1 (`unary_to_binary`); ek TM el kitabında açıkça istenmedikçe gerekmez.
+- TM-1: n>255 ret; girdi yalnızca `1`.
+- TM-2: Girdi biçimi `sol#sağ`; işaret sembolleri `r`,`s` şeritte kalır (kabul/ret kararı verilir).
+- TM-3: Alfabe `{a,b}`; boş girdi ret.
+- TM-4: Yalnızca unary `1`; boş girdi ret.
 
 ## Öğrenilenler
 
-- Deterministik TM’de her `(durum, okunan)` çifti tek geçiş olmalı; YAML yüklerken çakışma reddedilir.
-- Seyrek şerit ve negatif kafa indeksi, sol taşma senaryolarını basitleştirir.
-- Karmaşık makinelerde ayırıcı sembol (`X`) ve sabit genişlikte sayaç alanı tasarımı okunabilirliği artırır.
-- Testler (`pytest`) regresyonu yakalar; TM-1’de `q_lr` / `q_rw1` hataları test olmadan geç fark edilmişti.
+- Deterministik TM’de her `(durum, okunan)` tek geçiş olmalıdır.
+- İkili karşılaştırmada sağ tarafın da işaretlenmesi gerekir; aksi halde her tur sağın MSB’si ile karşılaştırılır.
+- Dize kopyada işaret (`X`) kopya bitene kadar silinmemelidir.
+- `pytest` regresyonu, özellikle uzun YAML makinelerinde hatayı erken gösterir.
 
-## Teslim öncesi yapılacaklar
+## Bonus (isteğe bağlı)
 
-- [x] Bölüm 2 TM-1: YAML, test, `design_notes`
-- [x] `docs/DAILY_LOG.md` 11–19 arası girişler
-- [x] El kitabı Bölüm 1–2 rubrik (motor, örnekler, TM-1, testler)
-- [x] `REPORT.md` son okuma (taslak teslim için yeterli)
-- [x] Son `pytest` (23 passed)
-- [ ] GitHub `main` push doğrulama (21 Mayıs)
+Çok şerit, NTM+BFS, adım grafiği, PPM/GIF: [docs/BONUS.md](docs/BONUS.md).
+
+## Teslim notları
+
+- Video: [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md) ve `python scripts/demo_video.py --all`
+- `final` etiketi öğrenci tarafından tamamlanmalıdır.
+- GitHub `main` güncel tutulmalıdır.
