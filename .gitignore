@@ -10,3 +10,10 @@ venv/
 dist/
 build/
 .DS_Store
+
+# Kişisel sunum notları (repoda paylaşılmaz)
+docs/SUNUM_MAKINELER.md
+docs/SUNUM_MAKINELER.html
+docs/SUNUM_MAKINELER.pdf
+docs/VIDEO_SUNUM.md
+out/video_review/

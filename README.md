@@ -9,7 +9,7 @@ El kitabı: [TuringLab Öğrenci El Kitabı (PDF)](https://github.com/user-attac
 
 **[YouTube — TuringLab sunum](https://www.youtube.com/watch?v=_4cI3NZbW9U)**
 
-Kayıt sırasında gösterilenler kısaca: README ve proje yapısı, YAML makine tanımları, `demo.py` ile adım adım çalıştırma, motorda sonsuz şerit sorunu ve çözümü, üç ödev makinesi (unary→ikili, ikili karşılaştırma, dize kopyalama), bonus modüller. Sunum metni: [docs/SUNUM_MAKINELER.md](docs/SUNUM_MAKINELER.md).
+Kayıt sırasında gösterilenler: proje yapısı, YAML makineler, `demo.py` demoları, motorda şerit tasarımı, üç ödev makinesi ve bonus modüller.
 
 ---
 
@@ -108,7 +108,6 @@ Daha fazla komut: [docs/DEMO_KOMUTLAR.md](docs/DEMO_KOMUTLAR.md).
 ## Diğer belgeler
 
 - [docs/DAILY_LOG.md](docs/DAILY_LOG.md) — geliştirme günlüğü  
-- [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md) — uzun video senaryosu (Bölüm 1–8)  
 - [docs/BONUS.md](docs/BONUS.md) — bonus kurulum (`requirements-bonus.txt`)
 
 ## GitHub

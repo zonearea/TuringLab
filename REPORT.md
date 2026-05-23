@@ -51,6 +51,6 @@ python -m pytest tests/ -q
 
 ## Teslim notları
 
-- Video: [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md) ve `python scripts/demo_video.py --all`
+- Video: YouTube sunum linki README’de; demolar `python demo.py` ve `scripts/demo_bonus.py`
 - `final` etiketi öğrenci tarafından tamamlanmalıdır.
 - GitHub `main` güncel tutulmalıdır.
