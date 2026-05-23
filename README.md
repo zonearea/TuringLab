@@ -1,77 +1,119 @@
-# turinglab-HüseyinBerkayKayıkçı
+# TuringLab — Hüseyin Berkay Kayıkçı
 
-[TuringLab_Ogrenci_ElKitabi.pdf](https://github.com/user-attachments/files/27605487/TuringLab_Ogrenci_ElKitabi.pdf)
+Selçuk Üniversitesi, Hesaplama Kuramı dersi için **TuringLab** final ödevi.  
+El kitabı: [TuringLab Öğrenci El Kitabı (PDF)](https://github.com/user-attachments/files/27605487/TuringLab_Ogrenci_ElKitabi.pdf)
 
-Selçuk Üniversitesi Hesaplama Kuramı — **TuringLab** final ödevi: tek şeritli deterministik TM motoru (YAML), örnek makineler ve pytest.
+## Video sunum
 
-- Mini-rapor: [REPORT.md](REPORT.md)
-- Günlük: [docs/DAILY_LOG.md](docs/DAILY_LOG.md)
-- **Video sunum:** [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md) — metin, komutlar, beklenen çıktılar
-- Bonus modüller: [docs/BONUS.md](docs/BONUS.md) (`pip install -r requirements-bonus.txt`)
+Ödevin canlı anlatımı ve terminal demoları:
 
-## Gereksinimler
+**[YouTube — TuringLab sunum](https://www.youtube.com/watch?v=_4cI3NZbW9U)**
 
-- Python 3.10+
-- `pip install -r requirements.txt`
+Kayıt sırasında gösterilenler kısaca: README ve proje yapısı, YAML makine tanımları, `demo.py` ile adım adım çalıştırma, motorda sonsuz şerit sorunu ve çözümü, üç ödev makinesi (unary→ikili, ikili karşılaştırma, dize kopyalama), bonus modüller. Sunum metni: [docs/SUNUM_MAKINELER.md](docs/SUNUM_MAKINELER.md).
 
-**Bölüm 1 (el kitabı):** Üçüncü parti yalnızca **PyYAML** ve **pytest**; standart kütüphane serbest.
+---
 
-## Test
+## Bu repo ne yapıyor?
+
+Tek şeritli **deterministik Turing makinesi** simülatörü. Her makine bir **YAML dosyasında** tanımlı; Python motoru (`turinglab`) dosyayı okuyup şerit üzerinde adım adım ilerliyor. Terminalde her adımda durum, şerit ve hareket görünüyor (`Adım | Durum | Şerit | Hareket`); köşeli parantez kafanın yerini gösteriyor.
+
+Makine kurallarını koda gömmek yerine YAML kullandım çünkü el kitabı da bu formatta ve yeni makine eklemek ya da geçiş düzeltmek dosyayı açmak kadar kolay. `demo.py` ve `pytest` aynı YAML dosyalarını kullanıyor.
+
+**Bölüm 1:** Motor + el kitabı örnekleri (ikili +1, unary artırma, palindrom vb.).  
+**Bölüm 2:** Dört ödev makinesi (aşağıdaki tablo).  
+**Bonus:** Çok şerit, belirsiz TM + BFS, görselleştirme — [docs/BONUS.md](docs/BONUS.md).
+
+---
+
+## Ödev makineleri (Bölüm 2)
+
+| | Dosya | Ne yapıyor? |
+|---|--------|-------------|
+| TM-1 | [unary_to_binary.yaml](machines/unary_to_binary.yaml) | `111…` gibi unary girdi → aynı sayının ikili yazımı (`111` → `11`, yani 3) |
+| TM-2 | [binary_compare.yaml](machines/binary_compare.yaml) | `sol#sağ` — sol ikili sayı sağdan büyükse kabul |
+| TM-3 | [string_copy.yaml](machines/string_copy.yaml) | `abba` → `abba#abba` (tek şeritte kopya) |
+| TM-4 | [unary_div3.yaml](machines/unary_div3.yaml) | `1^n` yalnızca n, 3’ün katıysa kabul (`111` evet, `11` hayır) |
+
+Tasarım notları ve kenar durumlar: [docs/design_notes.md](docs/design_notes.md).  
+Mini-rapor (Bölüm 3): [REPORT.md](REPORT.md).
+
+En çok uğraştığım kısım **TM-3 (dize kopyalama)**: ayırıcı `#` sonrası yön, işaret sembolü `X`’in zamanlaması, `a`/`b` için ayrı durumlar. Motor tarafında şeridi başta liste ile denedim; kafa sola gidince indeks hatası alınca **seyrek sözlük** (`dict[int, str]`) kullandım — detay [turinglab/tm_engine.py](turinglab/tm_engine.py).
+
+---
+
+## El kitabı örnekleri (`machines/`)
+
+| Dosya | Kısa açıklama |
+|--------|----------------|
+| [binary_increment.yaml](machines/binary_increment.yaml) | İkili +1 (`1011` → `1100`) |
+| [unary_increment.yaml](machines/unary_increment.yaml) | Unary’ye bir `1` ekleme |
+| [even_a.yaml](machines/even_a.yaml) | Çift sayıda `a` |
+| [binary_palindrome.yaml](machines/binary_palindrome.yaml) | `{0,1}` palindrom |
+
+---
+
+## Kurulum ve çalıştırma
+
+**Gereksinimler:** Python 3.10+, `pip install -r requirements.txt` (Bölüm 1’de esasen PyYAML + pytest).
+
+Windows’ta Türkçe terminal çıktısı için:
+
+```powershell
+chcp 65001
+cd <proje-klasörü>
+```
+
+Tüm testler:
 
 ```bash
 python -m pytest tests/ -q
 ```
 
-Ayrıntılı çıktı (demo / video):
-
-```bash
-python -m pytest tests/ -v
-```
-
-Adım adım makine gösterimi (`Adım | Durum | Şerit | Hareket`):
+Makine listesi ve demolar:
 
 ```powershell
-chcp 65001
-python demo.py binary_increment
-python demo.py unary_to_binary
-python demo.py binary_compare
-python demo.py string_copy
-python demo.py unary_div3
 python demo.py --list
+python demo.py tm1                    # TM-1 unary → ikili
+python demo.py tm2 --quiet            # TM-2 karşılaştırma (kısa çıktı)
+python demo.py string_copy --girdi ab # TM-3 kopya
+python demo.py tm4 --quiet            # TM-4 mod 3
+python demo.py --only odev            # dört ödev makinesi sırayla
 ```
 
-Tüm liste: [docs/DEMO_KOMUTLAR.md](docs/DEMO_KOMUTLAR.md).  
-**Sunum metni (her makine + zorluklar):** [docs/SUNUM_MAKINELER.md](docs/SUNUM_MAKINELER.md).  
-Sırayla: `python demo.py --only odev`
+Bonus:
 
-Video senaryosu (Bölüm 1–8): `python scripts/demo_video.py --all` — [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md).
+```powershell
+python scripts/demo_bonus.py bonus1
+python scripts/demo_bonus.py bonus2
+```
 
-Tüm testler yeşil olmalı (Bölüm 1 rubriği: en az 8 test; Bölüm 2’de `test_machines.py` eklenir).
+Daha fazla komut: [docs/DEMO_KOMUTLAR.md](docs/DEMO_KOMUTLAR.md).
 
-## Örnek makineler (`machines/`)
+---
 
-| Dosya | Kısa açıklama |
-|--------|----------------|
-| [machines/binary_increment.yaml](machines/binary_increment.yaml) | İkili sayı +1 (el kitabı örneği) |
-| [machines/unary_increment.yaml](machines/unary_increment.yaml) | Unary `1^n` → `1^(n+1)` |
-| [machines/even_a.yaml](machines/even_a.yaml) | `{a,b}` üzerinde çift sayıda `a` |
-| [machines/binary_palindrome.yaml](machines/binary_palindrome.yaml) | `{0,1}` palindrom (geçişler Paul Goldberg [FCS örneği](http://www.cs.ox.ac.uk/people/paul.goldberg/FCS/tm1.html) tabanı; uyuşmazlıkta `q_reject`) |
-| [machines/unary_to_binary.yaml](machines/unary_to_binary.yaml) | Unary `1^n` → n’nin ikili yazımı (K=8 bit alan; n≤255) |
-| [machines/binary_compare.yaml](machines/binary_compare.yaml) | `sol#sag` — sol ikili > sağ ikili ise kabul |
-| [machines/string_copy.yaml](machines/string_copy.yaml) | `w` → `w#w` (`{a,b}`) |
-| [machines/unary_div3.yaml](machines/unary_div3.yaml) | `1^n`, n mod 3 = 0 ise kabul |
+## Proje yapısı (kısa)
 
-Bölüm 2 tasarım notları: [docs/design_notes.md](docs/design_notes.md).
+| Yol | İçerik |
+|-----|--------|
+| `turinglab/tm_engine.py` | Ana motor: YAML yükleme, `run`, seyrek şerit |
+| `machines/*.yaml` | Makine tanımları |
+| `demo.py` | Terminal demosu |
+| `tests/` | Motor + makine testleri |
+| `scripts/` | Üretim betikleri, bonus demo, video yardımcıları |
 
-Ders sayfasında farklı YAML verilmişse, aynı şema ile `machines/` altına kopyalanıp testlere bağlanabilir.
+Şerit `dict` ile tutulur; kafa negatif indekse gidebilir, okunmayan hücre `blank` sayılır. `max_steps` sonsuz döngüye karşı emniyet sınırıdır (durma problemi çözümü değil).
 
-## Şerit ve sol taşma
+---
 
-Şerit seyrek `dict[int, str]` ile tutulur; kafa indeksi negatif olabilir. Sol uçta okuma yeni `blank` hücreleri oluşturur (davranış [turinglab/tm_engine.py](turinglab/tm_engine.py) + bu README ile sabitlenir).
+## Diğer belgeler
+
+- [docs/DAILY_LOG.md](docs/DAILY_LOG.md) — geliştirme günlüğü  
+- [docs/VIDEO_SUNUM.md](docs/VIDEO_SUNUM.md) — uzun video senaryosu (Bölüm 1–8)  
+- [docs/BONUS.md](docs/BONUS.md) — bonus kurulum (`requirements-bonus.txt`)
 
 ## GitHub
 
-Remote ekli değilse:
+Depoyu uzaktan bağlamak için:
 
 ```bash
 git remote add origin <repo-URL>

@@ -1,7 +1,6 @@
-# TuringLab — Makine makine sunum rehberi
+# TuringLab — Video sunum rehberi
 
-**Öğrenci:** Hüseyin Berkay Kayıkçı  
-**Süre önerisi:** ~10–12 dk (8 makine + giriş + test + kapanış)
+**Öğrenci:** Hüseyin Berkay Kayıkçı
 
 Kayıt öncesi:
 
@@ -10,262 +9,185 @@ chcp 65001
 cd C:\Users\Berkay\Desktop\business\OtomataOdev
 ```
 
-Her makine için tek komut: `python demo.py <ad>` (kurallar üstte, adımlar altta).
+**Senin akışın (sırayla):** README → `unary_to_binary` YAML → `demo.py` → terminal **TM-1** → `tm_engine.py` → terminal **TM-2** → **TM-3** + tasarım → bonus → kapanış.
+
+El kitabı: en az **2** ödev makinesi şart; bu planda **3** gösteriyorsun: **TM-1 + TM-2 + TM-3**.
 
 ---
 
-## Giriş (45 sn)
+## 1. README — giriş (~45 sn)
+
+> **[EKRAN]** `README.md` aç.
 
 **Söyle:**
 
-> Merhaba hocam, ben Hüseyin Berkay Kayıkçı. TuringLab final ödevimde tek şeritli deterministik Turing makinesi motoru yazdım. Makineler YAML’da tanımlı; Python motoru okuyup adım adım simüle ediyor. Testler pytest ile.
-
-**Göster:** Kök klasör, `README.md`, `machines/`, `turinglab/tm_engine.py`.
-
-**İsteğe bağlı:** `python demo.py --list`
+> Merhaba hocam, ben Hüseyin Berkay Kayıkçı. TuringLab final ödevim: tek şeritli deterministik TM motoru.
+> Makineler **YAML**’da — el kitabı formatı; motor ayrı, tanım `machines/` içinde; `demo.py` ve pytest aynı dosyayı kullanıyor.
+> Ödevde dört makine, repoda el kitabı örnekleri de var.
+> Sırada: YAML, üç ödev makinesi terminalde, motorda sonsuz şerit, bonus.
 
 ---
 
-## Motor — ortak zemin (1 dk)
+## 2. TM-1 YAML — `unary_to_binary` (~30 sn)
+
+> **[EKRAN]** `machines/unary_to_binary.yaml` aç.
+
+**Ne işe yarıyor (özet):** Bu dosya **TM-1’in kural listesi**. Motor çalışırken buradan okur: hangi durumda, hangi sembolü görünce ne yazıp sola/sağa gideceği.
 
 **Söyle:**
 
-> Tüm makineler aynı `SingleTapeTM` sınıfını kullanıyor. En büyük zorluk sonsuz şeritti: liste ile kafa sola gidince indeks hatası alıyordum. Şeridi `dict[int, str]` yaptım; kafa negatif indekse gidebiliyor, okunmayan hücre otomatik blank.
-
-**Göster:** `turinglab/tm_engine.py` içinde `tape: dict[int, str]` ve `read_cell` / `write_cell`.
-
-**Yaşadığım zorluk:** Teoride şerit sonsuz; pratikte bellek sınırlı — `max_steps` ile döngü koruması koydum (Halting problemi çözümü değil, emniyet).
+> Bu YAML birinci ödev makinesi: sadece `1`’lerden oluşan girdiyi ikili sayıya çeviriyor — `111` gibi üç tane `1`, çıktı `11`, yani 3.
+> Dosyada durumlar ve geçişler var; Python’a gömülü değil, buradan yükleniyor.
+> Mantık kısaca: soldaki `1`’leri tek tek sil, sağdaki ikili sayacı artır; bitince kabul.
 
 ---
 
-## 1. `binary_increment` — ikili +1
+## 3. `demo.py` (~30 sn)
 
-**Komut:** `python demo.py binary_increment`
-
-| | |
-|--|--|
-| **Girdi** | `{0,1}+` örn. `1011` |
-| **Görev** | İkili sayıya 1 ekle |
-| **Kabul** | Şerit doğru toplama sonucu (`1100`) |
-| **YAML** | `machines/binary_increment.yaml` |
+> **[EKRAN]** `demo.py` aç — `SingleTapeTM.from_yaml` ve `tm.run` satırları (~168–178).
 
 **Söyle:**
 
-> El kitabı örneği. Kafa ikili sayı üzerinde taşıma (carry) yaparak son basamağı artırıyor. Verbose çıktıda `[ ]` kafanın yerini gösteriyor.
-
-**Zorluk:** Bu makineyi ben yazmadım; el kitabı / Goldberg hattı üzerinden doğruladım. Asıl öğrenme, verbose formatının şartnameye uygun basılmasıydı (`Adım | Durum | Şerit | Hareket`).
-
-**Beklenen son satır:** `accept`, şerit `1100` civarı.
+> Terminal demoları `demo.py` ile. YAML yolu veriliyor, motor dosyayı yüklüyor,
+> `run` verbose modda her adımı basıyor. Az önce baktığımız makine de böyle çalışıyor.
 
 ---
 
-## 2. `unary_increment` — unary +1
+## 4. Terminal — ilk makine TM-1 (~1–1,5 dk)
 
-**Komut:** `python demo.py unary_increment`
+> **[TERMINAL]**
 
-| | |
-|--|--|
-| **Girdi** | `1+` örn. `111` |
-| **Görev** | Bir tane `1` ekle |
-| **Kabul** | `111` → `1111` |
-| **YAML** | `machines/unary_increment.yaml` |
+```powershell
+python demo.py tm1
+```
+
+veya:
+
+```powershell
+python demo.py unary_to_binary
+```
+
+**Söyle (çıktı gelirken):**
+
+> Şimdi canlı çalıştırıyorum. Üstte kural satırları, altta adım adım durum ve şerit;
+> köşeli parantez kafanın yeri. Sonunda kabul ve ikili sonuç — `111` için `11` gibi.
+> Çok `B` görünmesi sayaç alanının boş gezilmesi; hata değil.
+
+Birkaç on adım yeter; sonuç satırını mutlaka göster.
+
+---
+
+## 5. `tm_engine.py` — sonsuz şerit (~1 dk)
+
+> **[EKRAN]** `turinglab/tm_engine.py` → `run` içinde ~247: `tape: dict[int, str]` ve `read_cell` / `tape.get(head, self.blank)`.
 
 **Söyle:**
 
-> Sadece birlerden oluşan sayıya sona bir `1` ekliyor. TM-1’den daha basit; Bölüm 1’de motorun doğru çalıştığını göstermek için.
+> Az önceki uzun çıktıda şerit sürekli genişliyor; teoride sonsuz.
+> İlk denemede listeyle yaptım — kafa sola gidince indeks hatası alıyordum.
+> Çözüm: şeridi sözlük yaptım; indeks negatif de olabiliyor, okunmayan hücre otomatik blank.
+> `max_steps` ise sonsuz döngüye karşı emniyet; durma problemi çözümü değil.
 
-**Zorluk:** Az durumlu makine; asıl zorluk uzun girdide adım sayısının artması — tek şeritte sürekli sağa gidip dönme.
+İstersen 5 sn `from_yaml` (~99): “YAML buradan yükleniyor.”
 
 ---
 
-## 3. `even_a` — çift sayıda `a`
+## 6. İkinci demo — TM-2 `binary_compare` (~30–40 sn)
 
-**Komut:** `python demo.py even_a`
+> **[TERMINAL]** Uzun adım listesi istemiyorsan `--quiet`:
 
-| | |
-|--|--|
-| **Girdi** | `{a,b}*` örn. `abab` |
-| **Görev** | `a` harfi sayısı çift mi? |
-| **Kabul** | Çift ise evet; `ab` ret |
-| **YAML** | `machines/even_a.yaml` |
+```powershell
+python demo.py tm2 --quiet
+```
 
 **Söyle:**
 
-> Alfabede `a` ve `b` var; makine yalnızca `a`’ları sayıyor (veya eşliyor). `abab` kabul, `ab` ret — tek `a` var.
-
-**Zorluk:** İki harfli alfabe; geçiş tablosunda her `(durum, sembol)` için tek çıkış olmalı — YAML’de çakışan geçiş yükleme hatası veriyor, bunu testlerle yakaladım.
+> **TM-2:** ikili karşılaştırma — şeritte `sol#sağ` yazıyorsun,
+> sol sayı sağdan büyükse kabul. Örnek `1100#1011` — soldaki 12, sağdaki 11, kabul.
+> TM-4 mod 3 de repoda; zaman yetmezse sadece `demo.py --only odev` dersin.
 
 ---
 
-## 4. `binary_palindrome` — 0/1 palindrom
+## 7. Üçüncü demo — TM-3 `string_copy` + tasarım (~1,5 dk)
 
-**Komut:** `python demo.py binary_palindrome`
+### 7a. Kısa YAML (isteğe bağlı, ~15 sn)
 
-| | |
-|--|--|
-| **Girdi** | `{0,1}*` örn. `0110` |
-| **Görev** | Palindrom mu? |
-| **Kabul** | Evet; eşleşen bitler silinir, şerit boşalır |
-| **YAML** | `machines/binary_palindrome.yaml` (Goldberg FCS tabanı) |
+> **[EKRAN]** `machines/string_copy.yaml` — “TM-3: kelime kopyalama.”
+
+### 7b. Terminal
+
+> **[TERMINAL]**
+
+```powershell
+python demo.py string_copy --girdi ab
+```
 
 **Söyle:**
 
-> Dıştan içe: soldaki ilk bit silinir, sona gidilir, sağdaki son bit ile karşılaştırılır. Aynıysa o da silinir; değilse ret. `0110` kabul, `01` ret.
+> `ab` → `ab#ab`. Sona `#`, başa dönüş, harfleri işaretleyip sağa kopyalama.
 
-**Durum özeti:** `i` → `p0/p1` (sona) → `q0/q1` (son bit) → `r` (başa) → tekrar `i` → bitince `t`.
-
-**Zorluk:** Geçiş tablosunu sıfırdan yazmadım; hazır örneği projeye uyarladım. Uyuşmazlıkta `q_reject` — tek yanlış bitte ret.
-
-**Ek komut:** `python demo.py binary_palindrome --girdi 01` → ret göster.
-
----
-
-## 5. `unary_to_binary` — TM-1 (ödev)
-
-**Komut:** `python demo.py unary_to_binary` veya `python demo.py tm1`
-
-| | |
-|--|--|
-| **Girdi** | `1^n`, n≥1, n≤255 |
-| **Görev** | Unary → ikili yazım |
-| **Kabul** | Şerit = n’nin ikili hali (`111` → `11`) |
-| **YAML** | `machines/unary_to_binary.yaml` |
-| **Üretim** | `scripts/gen_unary_to_binary.py` |
+### 7c. Tasarım kararı (en zorlandığın)
 
 **Söyle:**
 
-> Sağda 8 bitlik sayaç, solda unary’den her tur bir `1` siliniyor, sayaç +1. Sonunda baştaki gereksiz sıfırlar temizleniyor. `111` için yaklaşık 70+ adım — tek şeritte çok gidip gelme normal.
-
-**Yaşadığım zorluklar (önemli — videoda anlat):**
-
-1. **`q_rw1` / `q_lr`:** Unary silme turunda kafa yanlış yönde kalınca `no_transition` — `q_rw1`’de X’e gelince `L`, `q_lr`’de sol baştaki `1` doğrudan silme yolu düzeltildi.
-2. **`q0, 0`:** Başta `0` girdisi ret olmalı — ayrı geçiş eklendi.
-3. **Taşma:** 256 bir → `q_rv` ile ret; test `test_unary_to_binary_overflow_reject`.
-
-**Beklenen:** `accept`, şerit `'11'`, adım sayısı yüksek.
+> En çok bu makinede zorlandım: `#` sonrası başa dönmek için sola dönmek,
+> `X` işaretini kopyalamadan silmemek, `a` ve `b` için ayrı durumlar.
+> Bonus’taki iki şerit kopya daha kolaydı; ödev tek şerit istediği için YAML’de böyle bıraktım.
 
 ---
 
-## 6. `binary_compare` — TM-2 (ödev)
+## 8. Bonus + kapanış (~1 dk)
 
-**Komut:** `python demo.py binary_compare` veya `python demo.py tm2`
+> **[TERMINAL]**
 
-| | |
-|--|--|
-| **Girdi** | `w#v`, ikili örn. `1100#1011` |
-| **Görev** | Sol ikili > sağ ikili? |
-| **Kabul** | Büyükse evet; eşit/küçük ret |
-| **YAML** | `machines/binary_compare.yaml` |
-| **Üretim** | `scripts/gen_binary_compare.py` |
+```powershell
+python scripts/demo_bonus.py bonus1
+python scripts/demo_bonus.py bonus2
+```
 
 **Söyle:**
 
-> MSB’den başlayarak bit bit karşılaştırma. Solda 0→`r`, 1→`s` işareti; eşit bitte sağda da işaret konur. Sonraki turda işaretli hücreler atlanır. `1100#1011` → 12 > 11 → kabul.
+> Bonus 1: iki şerit, `ab` iki şeritte de kopya. Bonus 2: belirsiz TM, BFS ilk kabul yolunu buluyor.
 
-**Yaşadığım zorluklar:**
+İsteğe bağlı:
 
-1. **Sağ şerit işaretlenmiyordu:** Her turda sağın en başındaki bit ile karşılaştırılıyordu; ikinci bit hep yanlış eşleşiyordu. Çözüm: `q_r0` / `q_r1` ile sağda da `r`/`s` yazmak.
-2. **`q_prevl` boşlukta ret:** Eşit bitten sonra sola dönünce blank’te ret — blank’te `q_next`’e `R` ile devam.
-3. **Eşitlik:** `11#11` ret olmalı — `q_left_done` sağda fazla 0/1 kontrolü.
+```powershell
+python -m pytest tests/ -q
+```
 
-**Ek:** `python demo.py binary_compare --girdi 11#11` → ret.
-
----
-
-## 7. `string_copy` — TM-3 (ödev)
-
-**Komut:** `python demo.py string_copy` veya `python demo.py tm3`
-
-| | |
-|--|--|
-| **Girdi** | `{a,b}+` örn. `abba` |
-| **Görev** | `w` → `w#w` |
-| **Kabul** | `abba#abba` |
-| **YAML** | `machines/string_copy.yaml` |
-| **Üretim** | `scripts/gen_string_copy.py` |
-
-**Söyle:**
-
-> Sona `#` konur. Her turda soldan bir harf `X` ile işaretlenir, şerit sonundaki boşluğa kopyalanır, `X` tekrar `a` veya `b` yapılır. Kısa demo: `python demo.py string_copy --girdi ab` (~36 adım).
-
-**Yaşadığım zorluklar (en uzun kısım — videoda vurgula):**
-
-1. **`#` sonrası yön:** `#` yazıldıktan sonra kafa sağa gidiyordu → `q_loop` boşlukta ret, çıktı `abba#` kalıyordu. Düzeltme: `q_run` sonunda `#` + **L** ile kelimenin son harfine dön.
-2. **X erken siliniyordu:** `q_wa` X’i hemen `a` yapınca makine hangi harfi kopyalayacağını unutuyordu → `ab#a`. Düzeltme: `q_puta`/`q_putb` bitene kadar X korunur; `q_reta`/`q_retb` sonra geri yazar.
-3. **a/b ayrımı:** Tek `X` yetmiyor; `q_mka` / `q_mkb` ile hangi harf kopyalanacağı ayrıldı.
-
-**Beklenen:** `accept`, şerit `'abba#abba'`.
+> 44 test geçti. Özet: README, YAML, motor, **üç ödev makinesi**, bonus. Teşekkürler.
 
 ---
 
-## 8. `unary_div3` — TM-4 (öğrenci seçimi)
+## Komutlar (tek bakış)
 
-**Komut:** `python demo.py unary_div3` veya `python demo.py tm4`
-
-| | |
-|--|--|
-| **Girdi** | `1^n` |
-| **Görev** | n mod 3 = 0 mı? |
-| **Kabul** | `111`, `111111` evet; `11` ret |
-| **YAML** | `machines/unary_div3.yaml` (elle yazıldı) |
-
-**Söyle:**
-
-> Üç durumlu sayaç: `q_start` → `q1` → `q2` → `q0` … Her `1` mod 3’ü artırır. Şerit bitince `q0`’da boşluk → kabul; değilse ret.
-
-**Zorluk:**
-
-- Boş girdi: Başta `q0` + blank doğrudan kabul veriyordu (0 mod 3). **`q_start`** eklendi — boş ret, en az bir `1` şart.
-- En kısa ödev makinesi; tasarım notlarında “elle YAML” diye belirttim.
-
-**Hızlı gösterim:** `python demo.py unary_div3 --quiet` (üç satır accept/reject).
+| Sıra | Ne | Komut / dosya |
+|------|-----|----------------|
+| 1 | Giriş | `README.md` |
+| 2 | TM-1 tanım | `machines/unary_to_binary.yaml` |
+| 3 | Demo script | `demo.py` |
+| 4 | TM-1 çalıştır | `python demo.py tm1` |
+| 5 | Motor / şerit | `turinglab/tm_engine.py` (~247) |
+| 6 | TM-2 çalıştır | `python demo.py tm2 --quiet` |
+| 7 | TM-3 çalıştır | `python demo.py string_copy --girdi ab` |
+| 8 | Bonus | `python scripts/demo_bonus.py bonus1` / `bonus2` |
+| 9 | Test (isteğe bağlı) | `python -m pytest tests/ -q` |
 
 ---
 
-## Testler (1 dk)
+## Süre özeti
 
-**Komut:** `python -m pytest tests/ -v`
+| Bölüm | Süre (örnek) |
+|--------|----------------|
+| README (giriş) | ~45 sn |
+| unary_to_binary YAML | ~1 dk |
+| demo.py | ~30 sn |
+| Terminal TM-1 | ~1–1,5 dk |
+| tm_engine sonsuz şerit | ~1 dk |
+| Terminal TM-2 (`--quiet`) | ~30–40 sn |
+| string_copy + tasarım | ~1–1,5 dk |
+| Bonus + kapanış | ~1 dk |
 
-**Söyle:**
+**Toplam:** ~8–10 dk
 
-> Her makine için otomatik test var. Motor 12, ödev makineleri 26, bonus 6 — toplam 44 test. Regresyon: TM-1’deki `q_lr` hatası test olmadan geç fark edilmişti.
-
-**Kısa:** `python -m pytest tests/ -q` → `44 passed`.
-
----
-
-## Kapanış (30 sn)
-
-**Söyle:**
-
-> Özet: YAML ile makine tanımı, dict ile şerit, pytest ile doğrulama. En zor makineler TM-1 (uzun algoritma + tur dönüşü), TM-2 (sağ şerit senkronu), TM-3 (kopya + işaret yönetimi). Dinlediğiniz için teşekkürler.
-
-**Rapor:** `REPORT.md`, tasarım: `docs/design_notes.md`.
-
----
-
-## Hızlı komut tablosu (ekran paylaşımı)
-
-| # | Makine | Komut |
-|---|--------|--------|
-| 1 | binary_increment | `python demo.py binary_increment` |
-| 2 | unary_increment | `python demo.py unary_increment` |
-| 3 | even_a | `python demo.py even_a` |
-| 4 | binary_palindrome | `python demo.py binary_palindrome` |
-| 5 | TM-1 | `python demo.py tm1` |
-| 6 | TM-2 | `python demo.py tm2` |
-| 7 | TM-3 | `python demo.py string_copy` |
-| 8 | TM-4 | `python demo.py tm4` |
-| — | Tüm ödev | `python demo.py --only odev` |
-| — | Test | `python -m pytest tests/ -q` |
-
----
-
-## Video sırası önerisi
-
-1. Giriş + motor (dict şerit)  
-2. Kısa örnek: `binary_increment` veya `binary_palindrome`  
-3. TM-1 → TM-2 → TM-3 (**zorluklar burada**) → TM-4  
-4. pytest + kapanış  
-
-TM-1 verbose uzun; videoda `111` ile göster, “tam liste YAML’de” de.
+**3 makine sırası:** TM-1 (sayı) → TM-2 (karşılaştırma) → TM-3 (kopya + tasarım). TM-4 yerine mod 3 istersen: `python demo.py tm4 --quiet`.

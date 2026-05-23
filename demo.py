@@ -204,10 +204,18 @@ def main() -> None:
     args = p.parse_args()
 
     if args.list:
-        print("Her makine için komut:\n")
-        for c in TUMU:
-            print(f"  python demo.py {c.id:<22}  # {c.aciklama}")
-        print("\nTakma adlar: tm1 tm2 tm3 tm4  |  Gruplar: python demo.py --only odev")
+        print("Makineler:\n")
+        print("  [Bölüm 1 — örnekler]")
+        for c in ORNEKLER:
+            print(f"    python demo.py {c.id:<22}  # {c.aciklama}")
+        print("\n  [Bölüm 2 — ödev]")
+        for c in ODEV:
+            print(f"    python demo.py {c.id:<22}  # {c.aciklama}")
+        print("\n  Takma adlar: tm1 tm2 tm3 tm4")
+        print("  Gruplar:   python demo.py --only ornek  |  --only odev")
+        print("\n  [Bonus]")
+        print("    python scripts/demo_bonus.py bonus1")
+        print("    python scripts/demo_bonus.py bonus2")
         return
 
     verbose = not args.quiet

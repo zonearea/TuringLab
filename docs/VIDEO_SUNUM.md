@@ -72,12 +72,12 @@ python scripts/demo_video.py --section 3
 ```
 Adım 0 | Durum: q0 | Şerit: [1]11 | Hareket: R
 ...
-Sonuç: accept | şerit: 11 | adım: 44
+Sonuç: accept | şerit: '11' | adım: 73
 ```
 
 **Söylenecek:**
 
-> Girdi `111` (3), çıktı `11` (ikili 3). Tek şeritte sürekli sola-sağa gidildiği için adım sayısı yüksek; bu normal.
+> Girdi `111` (3), çıktı `11` (ikili 3). Tek şeritte sürekli sola-sağa gidildiği için adım sayısı yüksek (~70+); bu normal.
 
 ---
 
@@ -197,7 +197,7 @@ python scripts/demo_video.py --section 8
 
 ## Kayıt kontrol listesi
 
-- [ ] `chcp 65001` veya `scripts/run_video_demo.ps1`
+- [ ] `chcp 65001` veya `.\scripts\run_video_demo.ps1` (UTF-8 + `--all`)
 - [ ] `python -m pytest tests/ -q` yeşil (44 passed)
 - [ ] Ses + ekran kaydı (terminal + isteğe bağlı YAML/dosya)
 - [ ] Video yükleme (hoca talimatı)
